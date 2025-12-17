@@ -128,7 +128,6 @@ def SetupUserCmd()
   # to
   # :Name \t\t Definition
   const lines = execute('command')->split("\n")
-  const caption = lines[0]
   const namepos = 4
   const defpos = 47
   usercmd = lines[1 :]
