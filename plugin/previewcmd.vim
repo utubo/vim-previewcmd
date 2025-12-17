@@ -5,6 +5,12 @@ var excmd = []
 var usercmd = []
 var pos = 0
 
+# label positions of `:help ex-cmd-index`
+const actpos = 32
+# label positions of `:command`
+const cmdpos = 4
+const defpos = 47
+
 augroup previewcmd
   autocmd!
   autocmd CmdlineChanged * OnCmdlineChanged()
@@ -80,7 +86,7 @@ def Update()
       maxheight: g:previewcmd.maxheight,
       filter: OnKeyPress,
     })
-    win_execute(winid, 'set nowrap')
+    win_execute(winid, 'set nowrap tabstop=8')
   else
     popup_settext(winid, items)
     popup_setoptions(winid, { cursorline: false })
@@ -126,12 +132,14 @@ def SetupUserCmd()
   # reformat
   # Attribute Name     Args Address Complete    Definition
   # to
-  # :Name \t\t Definition
+  # :Name                           Definition
   const lines = execute('command')->split("\n")
-  const namepos = 4
-  const defpos = 47
   usercmd = lines[1 :]
-    ->map((_, v) => $":{v[namepos :]->matchstr('^\S\+\s*')}\t\t{v[defpos :]->matchstr('\S.*')}")
+    ->map((_, v) => {
+        const c = v[cmdpos :]->matchstr('^\S\+')
+        const d = v[defpos :]->matchstr('\S.*')
+        return $':{c}{repeat(' ', actpos - len(c) - 3)}  {d}'
+      })
 enddef
 
 def FilterCmd(commands: list<string>, cmd: string): list<string>
