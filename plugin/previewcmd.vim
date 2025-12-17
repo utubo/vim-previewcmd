@@ -130,9 +130,9 @@ def SetupUserCmd()
   const lines = execute('command')->split("\n")
   const caption = lines[0]
   const namepos = 4
-  const defpos = matchstrpos(caption, '\S\+$')[1]
+  const defpos = 47
   usercmd = lines[1 :]
-    ->map((_, v) => $":{v[namepos :]->matchstr('^\S\+\s*')}\t\t{v[defpos : ]->substitute('^ \+', '', '')}")
+    ->map((_, v) => $":{v[namepos :]->matchstr('^\S\+\s*')}\t\t{v[defpos :]->matchstr('\S.*')}")
 enddef
 
 def FilterCmd(commands: list<string>, cmd: string): list<string>
