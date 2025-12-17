@@ -4,7 +4,6 @@ var winid = 0
 var excmd = []
 var usercmd = []
 var pos = 0
-var index = -1
 
 augroup previewcmd
   autocmd!
