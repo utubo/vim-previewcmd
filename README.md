@@ -4,6 +4,8 @@ Adds preview to Vim's command-line completion. Shows :help ex-cmd-index and :com
 
 Inspired by https://github.com/vim/vim/issues/18843
 
+<img width="638" height="358" alt="image" src="https://github.com/user-attachments/assets/74939aa9-50da-4b49-a783-d98baecb1f20" />
+
 ## Requirements
 
     Vim 9.1+ with +popupwin
