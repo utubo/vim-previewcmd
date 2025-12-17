@@ -26,7 +26,6 @@ def OnCmdlineChanged()
   endtry
 enddef
 
-
 def Main()
   InitConfig()
   if !g:previewcmd.enable
@@ -94,8 +93,8 @@ def Update()
   endif
 
   win_execute(winid, 'syntax clear')
+  win_execute(winid, 'syntax case ignore')
   win_execute(winid, $'syntax match PMenuKind /{cmd}\c/')
-  win_execute(winid, $'syntax case ignore')
   redraw
 enddef
 
