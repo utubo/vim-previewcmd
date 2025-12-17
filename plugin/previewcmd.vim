@@ -188,8 +188,9 @@ def SelectCmd(key: string)
   else
     popup_setoptions(winid, { cursorline: true })
   endif
-  win_execute(winid, 'w:selected = getline(".")')
-  const cmd = getwinvar(winid, 'selected', '')->matchstr('^\S\+')[1 :]
+  const v = 'previewcmd_selected'
+  win_execute(winid, $'w:{v} = getline(".")')
+  const cmd = getwinvar(winid, v, '')->matchstr('^\S\+')[1 :]
   noautocmd setcmdline($'{!pos ? '' : getcmdline()[ : pos - 1]}{cmd}')
   redraw
 enddef
