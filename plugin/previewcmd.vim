@@ -1,15 +1,16 @@
 vim9script
 
+# Column positions in `:help ex-cmd-index` output
+const actpos = 32
+
+# Column positions in `:command` output
+const cmdpos = 4
+const defpos = 47
+
 var winid = 0
 var excmd = []
 var usercmd = []
 var pos = 0
-
-# label positions of `:help ex-cmd-index`
-const actpos = 32
-# label positions of `:command`
-const cmdpos = 4
-const defpos = 47
 
 augroup previewcmd
   autocmd!
