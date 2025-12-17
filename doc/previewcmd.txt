@@ -1,0 +1,62 @@
+*previewcmd.txt*  Cmdline Completion Preview    For Vim version 9.1
+
+Author:   utubo
+License:  NYSL https://www.kmonos.net/nysl/index.en.html
+
+==============================================================================
+TABLE OF CONTENTS				*previewcmd-contents*
+
+1. Introduction			|previewcmd-intro|
+2. Features			|previewcmd-features|
+3. Requirements			|previewcmd-requirements|
+4. Commands			|previewcmd-commands|
+5. Configuration		|previewcmd-config|
+
+
+==============================================================================
+INTRODUCTION						*previewcmd-intro*
+
+previewcmd adds preview functionality to Vim's command-line completion.
+It shows descriptions from |ex-cmd-index| and |:command| output in a popup or
+preview window.
+
+Inspired by https://github.com/vim/vim/issues/18843
+
+
+==============================================================================
+FEATURES						*previewcmd-features*
+
+- Previews from |ex-cmd-index| (action column) and |:command| output
+- Popup or preview window display
+- User-defined command previews via spec function
+- Lightweight Vim9script implementation
+
+
+==============================================================================
+REQUIREMENTS					*previewcmd-requirements*
+
+- Vim 9.1+ with +popupwin feature
+
+
+==============================================================================
+CONFIGURATION					*previewcmd-config*
+
+g:previewcmd.enable		Enable previewcmd (default: v:true)
+
+g:previewcmd.delay		Preview display delay in milliseconds (default: 100)
+
+g:previewcmd.maxheight		Maximum height of preview (default: 10)
+
+g:previewcmd.fuzzy		Enable fuzzy matching (default: v:true)
+				When |v:true|, matches commands even when command
+				doesn't exactly match.
+
+Include match fuzzy (default: true)
+
+e.g. >
+	vim9script
+	g:previewcmd = { delay: 50, fuzzy: false }
+<
+
+vim:tw=78:ts=8:noet:ft=help:norl:tags=tags,rgtags
+
