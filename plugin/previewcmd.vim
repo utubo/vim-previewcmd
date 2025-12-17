@@ -12,13 +12,22 @@ augroup previewcmd
 augroup END
 
 def OnCmdlineChanged()
+  try
+    Main()
+  catch
+    g:previewcmd_lastexception = v:exception
+  endtry
+enddef
+
+
+def Main()
   InitConfig()
   if !g:previewcmd.enable
     # NOP
   elseif !winid
     timer_start(g:previewcmd.delay, Open)
   else
-    SafeUpdate()
+    Update()
   endif
 enddef
 
@@ -38,16 +47,8 @@ def Open(_: number)
   if mode() ==# 'c' && getcmdtype() ==# ':'
     SetupExCmd()
     SetupUserCmd()
-    SafeUpdate()
-  endif
-enddef
-
-def SafeUpdate()
-  try
     Update()
-  catch
-    g:previewcmd_lastexception = v:exception
-  endtry
+  endif
 enddef
 
 def Update()
@@ -128,10 +129,10 @@ def SetupUserCmd()
   # :Name \t\t Definition
   const lines = execute('command')->split("\n")
   const caption = lines[0]
-  const namepos = stridx(caption, 'Name')
-  const defpos = stridx(caption, 'Definition')
+  const namepos = 4
+  const defpos = matchstrpos(caption, '\S\+$')[1]
   usercmd = lines[1 :]
-    ->map((_, v) => $":{v[namepos :]->matchstr('^\S\+\s*')}\t\t{v[defpos : ]}")
+    ->map((_, v) => $":{v[namepos :]->matchstr('^\S\+\s*')}\t\t{v[defpos : ]->substitute('^ \+', '', '')}")
 enddef
 
 def FilterCmd(commands: list<string>, cmd: string): list<string>
