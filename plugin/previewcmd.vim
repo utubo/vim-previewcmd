@@ -11,6 +11,7 @@ var winid = 0
 var excmd = []
 var usercmd = []
 var pos = 0
+var bak = ''
 
 augroup previewcmd
   autocmd!
@@ -45,12 +46,18 @@ def InitConfig()
       fuzzy: true,
       enable: true,
       initilized: true,
+      keymap_next: ["\<Tab>"],
+      keymap_prev: ["\<S-Tab>"],
+      keymap_close: ["\<Esc>", "\<C-y>"],
+      keymap_end: ["\<C-e>"],
+      keymap_top: [],
     }->extend(get(g:, 'previewcmd', {}))
   endif
 enddef
 
 def Open(_: number)
   if mode() ==# 'c' && getcmdtype() ==# ':'
+    bak = getcmdline()
     SetupExCmd()
     SetupUserCmd()
     Update()
@@ -168,21 +175,29 @@ def FilterCmd(commands: list<string>, cmd: string): list<string>
 enddef
 
 def OnKeyPress(_: number, key: string): bool
-  if key ==# "\<ESC>"
+  if index(g:previewcmd.keymap_close, key) !=# -1
     ClosePopup()
     return true
-  elseif key ==# "\<Tab>" || key ==# "\<C-n>"
+  elseif index(g:previewcmd.keymap_end, key) !=# -1
+    setcmdline(bak)
+    ClosePopup()
+    return true
+  elseif index(g:previewcmd.keymap_next, key) !=# -1
     SelectCmd('j')
     return true
-  elseif key ==# "\<S-Tab>" || key ==# "\<C-p>"
+  elseif index(g:previewcmd.keymap_prev, key) !=# -1
     SelectCmd('k')
+    return true
+  elseif index(g:previewcmd.keymap_top, key) !=# -1
+    SelectCmd('gg', ' ')
+    ClosePopup()
     return true
   else
     return false
   endif
 enddef
 
-def SelectCmd(key: string)
+def SelectCmd(key: string, addchar = '')
   if popup_getoptions(winid).cursorline
     win_execute(winid, $'normal! {key}')
   else
@@ -191,7 +206,7 @@ def SelectCmd(key: string)
   const v = 'previewcmd_selected'
   win_execute(winid, $'w:{v} = getline(".")')
   const cmd = getwinvar(winid, v, '')->matchstr('^\S\+')[1 :]
-  noautocmd setcmdline($'{!pos ? '' : getcmdline()[ : pos - 1]}{cmd}')
+  noautocmd setcmdline($'{!pos ? '' : getcmdline()[ : pos - 1]}{cmd}{addchar}')
   redraw
 enddef
 
