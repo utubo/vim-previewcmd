@@ -74,6 +74,7 @@ e.g. >
 	g:previewcmd = {
 		delay: 50,
 		fuzzy: false,
+		keymap_close: ["\<C-y>", "\<Esc>"],
 		popup_args: { maxheight: 5 },
 	}
 <
