@@ -24,6 +24,17 @@ git clone https://github.com/utubo/vim-previewcmd
 packadd vim-previewcmd
 ```
 
+## Usage
+
+Type `:` and start typing a command; a preview will appear as you type.
+
+Default key mappings:
+- `<Tab>` ... Previous command
+- `<S-Tab>` ... Next command
+- `<C-y>` ... Accept and close
+- `<C-e>` ... End completion
+- n/a ... Select first + space
+
 ## Configuration
 
 See [doc/previewcmd.txt](doc/previewcmd.txt).
