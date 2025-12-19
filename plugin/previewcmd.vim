@@ -53,7 +53,7 @@ def InitConfig()
       enable: true,
       keymap_next: ["\<Tab>"],
       keymap_prev: ["\<S-Tab>"],
-      keymap_close: ["\<Esc>", "\<C-y>"],
+      keymap_close: ["\<C-y>"],
       keymap_end: ["\<C-e>"],
       keymap_top: [],
       popup_args: {},
