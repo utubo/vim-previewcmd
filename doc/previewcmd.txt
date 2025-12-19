@@ -63,7 +63,9 @@ g:previewcmd.keymap_*		Custom key mappings for preview navigation:
 		keymap_top:   [],                   # Select first + space
 	}
 <
-Each option accepts a |List| of key sequences. Multiple keys can be mapped.
+Each option accepts a |List| of *single* key sequences.
+Multiple single keys can be mapped (e.g. ["f", "b"]),
+but multi-character key sequences (e.g. ["foo", "bar"]) are not supported.
 
 e.g. >
 	vim9script
