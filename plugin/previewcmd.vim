@@ -13,8 +13,10 @@ var usercmd = []
 var pos = 0
 var bak = ''
 
-hi! default link PreviewCmd PMenu
-hi! default link PreviewCmdMatch PMenuKind
+if !hlexists('PreviewCmd')
+  hi default link PreviewCmd PMenu
+  hi default link PreviewCmdMatch PMenuKind
+endif
 
 augroup previewcmd
   autocmd!
