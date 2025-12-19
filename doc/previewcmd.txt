@@ -52,6 +52,10 @@ g:previewcmd.fuzzy		Enable fuzzy matching (default: v:true)
 				When |v:true|, matches commands even when
 				command doesn't exactly match.
 
+g:previewcmd.popup_props	Custom |popup_create()| arguments for popup
+				See |popup_create-arguments| for available
+				options.
+
 g:previewcmd.keymap_*		Custom key mappings for preview navigation:
 >
 	# default
@@ -69,7 +73,11 @@ but multi-character key sequences (e.g. ["foo", "bar"]) are not supported.
 
 e.g. >
 	vim9script
-	g:previewcmd = { delay: 50, fuzzy: false }
+	g:previewcmd = {
+		delay: 50,
+		fuzzy: false,
+		popup_props: { maxheight: 5 },
+	}
 <
 
 vim:tw=78:ts=8:noet:ft=help:norl:tags=tags,rgtags

@@ -41,16 +41,16 @@ enddef
 def InitConfig()
   if !exists('g:previewcmd.initilized')
     g:previewcmd = {
+      initilized: true,
       delay: 100,
-      maxheight: 10,
       fuzzy: true,
       enable: true,
-      initilized: true,
       keymap_next: ["\<Tab>"],
       keymap_prev: ["\<S-Tab>"],
       keymap_close: ["\<Esc>", "\<C-y>"],
       keymap_end: ["\<C-e>"],
       keymap_top: [],
+      popup_props: {},
     }->extend(get(g:, 'previewcmd', {}))
   endif
 enddef
@@ -90,9 +90,9 @@ def Update()
       line: &lines - &cmdheight,
       col: 1,
       fixed: true,
-      maxheight: g:previewcmd.maxheight,
+      maxheight: 10,
       filter: OnKeyPress,
-    })
+    }->extend(g:previewcmd.popup_props))
     win_execute(winid, 'set nowrap tabstop=8')
   else
     popup_settext(winid, items)
