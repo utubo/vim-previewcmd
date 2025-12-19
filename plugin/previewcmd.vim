@@ -13,6 +13,9 @@ var usercmd = []
 var pos = 0
 var bak = ''
 
+hi! default link PreviewCmd PMenu
+hi! default link PreviewCmdMatch PMenuKind
+
 augroup previewcmd
   autocmd!
   autocmd CmdlineChanged * Silent(Main)
@@ -97,6 +100,7 @@ def Update()
       fixed: true,
       maxheight: 10,
       filter: OnKeyPress,
+      heightlight: 'PreviewCmd',
     }->extend(g:previewcmd.popup_args))
     win_execute(winid, 'set nowrap tabstop=8')
   else
@@ -106,7 +110,7 @@ def Update()
 
   win_execute(winid, 'syntax clear')
   win_execute(winid, 'syntax case ignore')
-  win_execute(winid, $'syntax match PMenuKind /{cmd}\c/')
+  win_execute(winid, $'syntax match PreviewCmdMatch /{cmd}\c/')
   redraw
 enddef
 

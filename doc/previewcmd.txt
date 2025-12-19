@@ -78,5 +78,11 @@ e.g. >
 	}
 <
 
+*previewcmd-highlight*		Custom highlight groups:
+
+PreviewCmd			Preview window text
+PreviewCmdMatch			Matched command name in preview
+
+
 vim:tw=78:ts=8:noet:ft=help:norl:tags=tags,rgtags
 
