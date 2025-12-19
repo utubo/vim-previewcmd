@@ -43,12 +43,12 @@ CONFIGURATION					*previewcmd-config*
 
 g:previewcmd.enable		Enable previewcmd (default: v:true)
 
-g:previewcmd.delay		Preview display delay in milliseconds
-				(default: 100)
-
 g:previewcmd.fuzzy		Enable fuzzy matching (default: v:true)
 				When |v:true|, matches commands even when
 				command doesn't exactly match.
+
+g:previewcmd.delay		Preview display delay in milliseconds
+				(default: 100)
 
 g:previewcmd.popup_args		Custom |popup_create()| arguments for popup
 				See |popup_create-arguments| for available
