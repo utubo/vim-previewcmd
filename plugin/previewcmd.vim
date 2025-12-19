@@ -15,15 +15,16 @@ var bak = ''
 
 augroup previewcmd
   autocmd!
-  autocmd CmdlineChanged * OnCmdlineChanged()
-  autocmd CmdlineLeave * ClosePopup()
+  autocmd CmdlineChanged * Silent(Main)
+  autocmd CmdlineLeave * Silent(Close)
 augroup END
 
-def OnCmdlineChanged()
+def Silent(F: func)
   try
-    Main()
+    F()
   catch
-    g:previewcmd_lastexception = v:exception
+    echow 'previewcmd:' v:exception
+    silent! Close()
   endtry
 enddef
 
@@ -32,7 +33,7 @@ def Main()
   if !g:previewcmd.enable
     # NOP
   elseif !winid
-    timer_start(g:previewcmd.delay, Open)
+    timer_start(g:previewcmd.delay, SafeOpen)
   else
     Update()
   endif
@@ -55,7 +56,11 @@ def InitConfig()
   endif
 enddef
 
-def Open(_: number)
+def SafeOpen(_: number)
+  Silent(Open)
+enddef
+
+def Open()
   if mode() ==# 'c' && getcmdtype() ==# ':'
     bak = getcmdline()
     SetupExCmd()
@@ -66,13 +71,13 @@ enddef
 
 def Update()
   if getcmdline() =~# '[ /]'
-    ClosePopup()
+    Close()
     return
   endif
 
   const cmd = getcmdline()->matchstr('[a-zA-Z][a-zA-Z0-9_/]*$')
   if !cmd
-    ClosePopup()
+    Close()
     return
   endif
 
@@ -80,7 +85,7 @@ def Update()
 
   const items = (excmd + usercmd)->FilterCmd(cmd)
   if !items
-    ClosePopup()
+    Close()
     return
   endif
 
@@ -105,7 +110,7 @@ def Update()
   redraw
 enddef
 
-def ClosePopup()
+def Close()
   if !!winid
     popup_close(winid)
     winid = 0
@@ -176,11 +181,11 @@ enddef
 
 def OnKeyPress(_: number, key: string): bool
   if index(g:previewcmd.keymap_close, key) !=# -1
-    ClosePopup()
+    Close()
     return true
   elseif index(g:previewcmd.keymap_end, key) !=# -1
     setcmdline(bak)
-    ClosePopup()
+    Close()
     return true
   elseif index(g:previewcmd.keymap_next, key) !=# -1
     SelectCmd('j')
@@ -190,7 +195,7 @@ def OnKeyPress(_: number, key: string): bool
     return true
   elseif index(g:previewcmd.keymap_top, key) !=# -1
     SelectCmd('gg', ' ')
-    ClosePopup()
+    Close()
     return true
   else
     return false
