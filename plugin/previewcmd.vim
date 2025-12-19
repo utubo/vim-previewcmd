@@ -50,7 +50,7 @@ def InitConfig()
       keymap_close: ["\<Esc>", "\<C-y>"],
       keymap_end: ["\<C-e>"],
       keymap_top: [],
-      popup_props: {},
+      popup_args: {},
     }->extend(get(g:, 'previewcmd', {}))
   endif
 enddef
@@ -92,7 +92,7 @@ def Update()
       fixed: true,
       maxheight: 10,
       filter: OnKeyPress,
-    }->extend(g:previewcmd.popup_props))
+    }->extend(g:previewcmd.popup_args))
     win_execute(winid, 'set nowrap tabstop=8')
   else
     popup_settext(winid, items)

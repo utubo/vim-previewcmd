@@ -52,7 +52,7 @@ g:previewcmd.fuzzy		Enable fuzzy matching (default: v:true)
 				When |v:true|, matches commands even when
 				command doesn't exactly match.
 
-g:previewcmd.popup_props	Custom |popup_create()| arguments for popup
+g:previewcmd.popup_args		Custom |popup_create()| arguments for popup
 				See |popup_create-arguments| for available
 				options.
 
@@ -76,7 +76,7 @@ e.g. >
 	g:previewcmd = {
 		delay: 50,
 		fuzzy: false,
-		popup_props: { maxheight: 5 },
+		popup_args: { maxheight: 5 },
 	}
 <
 
