@@ -75,7 +75,7 @@ def Open()
 enddef
 
 def Update()
-  if getcmdline() =~# '[ /]'
+  if !IsValid()
     Close()
     return
   endif
@@ -114,6 +114,32 @@ def Update()
   win_execute(winid, 'syntax case ignore')
   win_execute(winid, $'syntax match PreviewCmdMatch /{cmd}\c/')
   redraw
+enddef
+
+def IsValid(): bool
+  const c = getcmdline()
+  # e.g. `s//`
+  if c =~# '/'
+    return false
+  endif
+  # no-args
+  if c !~# ' '
+    return true
+  endif
+  # tab, split, vsplit
+  const a = getcmdline()->split(' ')
+  if len(a) !=# 2 || len(a[0]) < 2
+    return false
+  endif
+  if a[0] ==# 'tab'
+    return true
+  endif
+  for d in ['split', 'vsplit']
+    if stridx(d, a[0]) ==# 0 && len(a[0]) <= len(d)
+      return true
+    endif
+  endfor
+  return false
 enddef
 
 def Close()
