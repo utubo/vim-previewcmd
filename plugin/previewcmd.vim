@@ -127,7 +127,7 @@ def IsValid(): bool
     return true
   endif
   # tab, split, vsplit
-  const a = getcmdline()->split(' ')
+  const a = c->split(' ')
   if len(a) !=# 2 || len(a[0]) < 2
     return false
   endif
