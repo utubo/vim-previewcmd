@@ -131,11 +131,12 @@ def IsValid(): bool
   if len(a) !=# 2 || len(a[0]) < 2
     return false
   endif
-  if a[0] ==# 'tab'
+  const aa = a[0]->matchstr('[a-z]\+$')
+  if aa ==# 'tab'
     return true
   endif
   for d in ['split', 'vsplit']
-    if stridx(d, a[0]) ==# 0 && len(a[0]) <= len(d)
+    if stridx(d, aa) ==# 0 && len(aa) <= len(d)
       return true
     endif
   endfor
