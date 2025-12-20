@@ -29,8 +29,8 @@ packadd vim-previewcmd
 Type `:` and start typing a command; a preview will appear as you type.
 
 Default key mappings:
-- `<Tab>` ... Previous command
-- `<S-Tab>` ... Next command
+- `<Tab>` ... Next command
+- `<S-Tab>` ... Previous command
 - `<C-y>` ... Accept and close
 - `<C-e>` ... End completion
 - n/a ... Select first + space

@@ -58,8 +58,8 @@ g:previewcmd.keymap_*		Custom key mappings for preview navigation:
 >
 	# default
 	g:previewcmd = {
-		keymap_prev:  ["\<Tab>"],   # Previous command
-		keymap_next:  ["\<S-Tab>"], # Next command
+		keymap_next:  ["\<Tab>"],   # Next command
+		keymap_prev:  ["\<S-Tab>"], # Previous command
 		keymap_close: ["\<C-y>"],   # Accept and close
 		keymap_end:   ["\<C-e>"],   # End completion
 		keymap_top:   [],           # Select first + space
