@@ -117,26 +117,24 @@ def Update()
 enddef
 
 def IsValid(): bool
-  const c = getcmdline()
+  const cl = getcmdline()
   # e.g. `s//`
-  if c =~# '/'
+  if cl =~# '/'
     return false
   endif
   # no-args
-  if c !~# ' '
+  if cl !~# ' '
     return true
   endif
-  # tab, split, vsplit
-  const a = c->split(' ')
-  if len(a) !=# 2 || len(a[0]) < 2
+  # tab, split, vsplit, verbose
+  const cc = cl->split(' ')
+  if len(cc) !=# 2 || len(cc[0]) < 2
     return false
   endif
-  const aa = a[0]->matchstr('[a-z]\+$')
-  if aa ==# 'tab'
-    return true
-  endif
-  for d in ['split', 'vsplit']
-    if stridx(d, aa) ==# 0 && len(aa) <= len(d)
+  const c = cc[0]->matchstr('[a-z]\+$')
+  const l = len(c)
+  for d in [['tab', 3], ['split', 2], ['vsplit', 2], ['verbose', 4]]
+    if d[1] <= l && l <= len(d[0]) && stridx(d[0], c) ==# 0
       return true
     endif
   endfor
