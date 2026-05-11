@@ -102,7 +102,7 @@ def Update()
       fixed: true,
       maxheight: 10,
       filter: OnKeyPress,
-      heightlight: 'PreviewCmd',
+      highlight: 'PreviewCmd',
     }->extend(g:previewcmd.popup_args))
     win_execute(winid, 'set nowrap tabstop=8')
   else
