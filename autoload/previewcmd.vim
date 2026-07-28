@@ -26,10 +26,6 @@ enddef
 
 def Main()
   InitConfig()
-  if !hlexists('PreviewCmd')
-    hi default link PreviewCmd PMenu
-    hi default link PreviewCmdMatch PMenuKind
-  endif
   if !g:previewcmd.enable
     # NOP
   elseif !winid
@@ -105,9 +101,23 @@ def Update()
     popup_setoptions(winid, { cursorline: false })
   endif
 
+  if IsHlCleard('PrevewCmd')
+    hi default link PreviewCmd PMenu
+  endif
+  if IsHlCleard('PrevewCmdMatch')
+    if !IsLinksTo('PmenuMatch', 'PMenu')
+      hi default link PreviewCmdMatch PmenuMatch
+    elseif !IsLinksTo('PmenuKind', 'Pmenu')
+      hi default link PreviewCmdMatch PmenuKind
+    else
+      hi default link PreviewCmdMatch Search
+    endif
+  endif
+
   win_execute(winid, 'syntax clear')
   win_execute(winid, 'syntax case ignore')
   win_execute(winid, $'syntax match PreviewCmdMatch /{cmd}\c/')
+
   g:previewcmd_winid = winid
   redraw
 enddef
@@ -135,6 +145,14 @@ def IsValid(): bool
     endif
   endfor
   return false
+enddef
+
+def IsHlCleard(a: string): bool
+  return hlget(a)->get(0, { cleared: true })->get('cleared', false)
+enddef
+
+def IsLinksTo(a: string, b: string): bool
+  return hlget(a)->get(0, {})->get('linksto', '') ==? b
 enddef
 
 def Close()
