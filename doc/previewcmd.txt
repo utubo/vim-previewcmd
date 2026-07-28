@@ -90,7 +90,7 @@ PreviewCmdMatch			Matched command name in preview
 VARIABLES					*previewcmd-variables*
 
 g:previewcmd_winid				*g:previewcmd_winid*
-		The window ID (|window-ID|) of the cmdline popup window.
+		The window ID (|window-ID|) of the preview popup window.
 		Contains the actual window ID when visible, or `0` when hidden.
 		Read-only.
 
