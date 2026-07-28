@@ -1,5 +1,7 @@
 vim9script
 
+g:previewcmd_winid = 0
+
 # Column positions in `:help ex-cmd-index` output
 const actpos = 32
 
@@ -113,6 +115,7 @@ def Update()
   win_execute(winid, 'syntax clear')
   win_execute(winid, 'syntax case ignore')
   win_execute(winid, $'syntax match PreviewCmdMatch /{cmd}\c/')
+  g:previewcmd_winid = winid
   redraw
 enddef
 
@@ -145,6 +148,7 @@ def Close()
   if !!winid
     popup_close(winid)
     winid = 0
+    g:previewcmd_winid = winid
     redraw
   endif
 enddef
